@@ -52,6 +52,21 @@ function output_wallofsheep:process_http_request_post(evt)
 
     if not data['request_method'] == 'POST' then return end
 
+    local password = nil
+    local pwcheck = nil
+    local post_str = "{"
+    for i, v in ipairs(data['post_data']) do
+        kv = split(v, ": ")
+        if kv[0] == 'passwd' then
+            password = kv[1]
+        elseif kv[0] == 'password' then
+            password = kv[1]
+        elseif kv[0] == 'pass' then
+            password = kv[1]
+        end
+        post_str = post_str .. kv[0] .. " => " .. kv[1] ..", "
+    end
+    post_str = post_str .. "}"
     if not username or not password then return end
 
     local username = data['post_data']
@@ -65,8 +80,7 @@ function output_wallofsheep:process_http_request_post(evt)
         status = "unknown"
     end
 
-
-    self.logfile:write("Found credentials via HTTP : " .. client .. " -> " .. server .. " | user : '" .. username .."', password : '" .. password .. "' (status " .. status .. ")\n")
+    self.logfile:write("Found credentials via HTTP POST: " .. client .. " -> " .. server .. " | password: '" .. password .."' postdata : '" .. post_str .. "' (status " .. status .. ")\n")
     self.logfile:flush()
 
 end
