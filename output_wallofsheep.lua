@@ -22,6 +22,11 @@ output_wallofsheep = pom.output.new("wallofsheep", "Log clear text password seen
 })
 
 
+function output_wallofsheep:process_http_request(evt)
+    self:process_http_request_auth(evt)
+    self:process_http_request_post(evt)
+end
+
 function output_wallofsheep:process_http_request_auth(evt)
 
     local data = evt.data
@@ -164,8 +169,7 @@ function output_wallofsheep:open()
 	self.logfile = io.open(self:param_get("log_file"), "a")
 
 	-- Listen to HTTP request event
-	self:event_listen_start("http_request", nil, self.process_http_request_auth)
-    self:event_listen_start("http_request", nil, self.process_http_request_post)
+	self:event_listen_start("http_request", nil, self.process_http_request)
 
 	-- Listen to SMTP auth event
 	self:event_listen_start("smtp_auth", nil, self.process_smtp_auth)

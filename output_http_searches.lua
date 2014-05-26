@@ -40,7 +40,7 @@ function output_http_searches:process_request(evt)
 	local server = data["server_name"]
 	local client = data["client_addr"]
 
-	self.logfile:write("Client " .. client .. " searched for \"" .. match .. "\" on " .. server .. "\n")
+	self.logfile:write(os.date('%Y %m %d %X ') .. "Client " .. client .. " searched for \"" .. match .. "\" on " .. server .. "\n")
 	self.logfile:flush()
 
 end
