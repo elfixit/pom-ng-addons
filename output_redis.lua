@@ -65,13 +65,13 @@ function output_redis:data2table(data)
 
         local value_type = type(value)
         if value_type == "userdata" then
-            print("Data has key " .. key .. " which value is a data_item object")
+            -- print("Data has key " .. key .. " which value is a data_item object")
             tbl[key] = self:itemdata2table(value)
         elseif value_type == "nil" then
-            print("Data has key " .. key .. " with no value associated")
+            -- print("Data has key " .. key .. " with no value associated")
             tbl[key] = nil
         else
-            print("Data has key " .. key .. " with value \"" .. value .. "\"")
+            -- print("Data has key " .. key .. " with value \"" .. value .. "\"")
             tbl[key] = value
         end
     end
@@ -88,13 +88,13 @@ function output_redis:itemdata2table(data)
 
         local value_type = type(value)
         if value_type == "userdata" then
-            print("Data has key " .. key .. " which value is a data_item object")
+            -- print("Data has key " .. key .. " which value is a data_item object")
             tbl[key] = self:itemdata2table(value)
         elseif value_type == "nil" then
-            print("Data has key " .. key .. " with no value associated")
+            -- print("Data has key " .. key .. " with no value associated")
             tbl[key] = nil
         else
-            print("Data has key " .. key .. " with value \"" .. value .. "\"")
+            -- print("Data has key " .. key .. " with value \"" .. value .. "\"")
             tbl[key] = value
         end
     end
