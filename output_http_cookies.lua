@@ -102,7 +102,7 @@ function output_http_cookies:open()
 
 	-- Open the log file
 	self.logfile = io.open(self:param_get("log_file"), "a")
-    self.logfile:write(os.date('%Y %m %d %X ') .. "Session cookies for " .. server .. " from client " .. client .. " : \"" .. cookie .. "\"\n")
+
 	-- Listen to HTTP request event
 	self:event_listen_start("http_request", nil, self.process_request)
 
