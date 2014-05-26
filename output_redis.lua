@@ -65,7 +65,7 @@ function output_redis:data2table(data)
         local value_type = type(value)
         if value_type == "userdata" then
             print("Data has key " .. key .. " which value is a data_item object")
-            tbl[key] = data2table(value)
+            tbl[key] = self:data2table(value)
         elseif value_type == "nil" then
             print("Data has key " .. key .. " with no value associated")
             tbl[key] = nil
