@@ -80,7 +80,7 @@ function output_wallofsheep:process_http_request_post(evt)
         status = "unknown"
     end
 
-    self.logfile:write("Found credentials via HTTP POST: " .. client .. " -> " .. server .. " | password: '" .. password .."' postdata : '" .. post_str .. "' (status " .. status .. ")\n")
+    self.logfile:write(os.date('%Y %m %d %X') .. " Found credentials via HTTP POST: " .. client .. " -> " .. server .. " | password: '" .. password .."' postdata : '" .. post_str .. "' (status " .. status .. ")\n")
     self.logfile:flush()
 
 end
@@ -117,7 +117,7 @@ function output_wallofsheep:process_smtp_auth(evt)
 
 	local client = data["client_addr"]
 
-	self.logfile:write("Found credentials via SMTP : " .. client .. " -> " .. server .. " | user : '" .. username .. "', password : '" .. password .. "', method : '" .. method .. "' (status : " .. status .. ")\n")
+	self.logfile:write(os.date('%Y %m %d %X') .. "Found credentials via SMTP : " .. client .. " -> " .. server .. " | user : '" .. username .. "', password : '" .. password .. "', method : '" .. method .. "' (status : " .. status .. ")\n")
 	self.logfile:flush()
 
 end
@@ -153,7 +153,7 @@ function output_wallofsheep:process_ppp_pap_auth(evt)
 	elseif success == false then
 		status = "auth failure"
 	end
-	self.logfile:write(msg .. "' (status : " .. status .. ")\n")
+	self.logfile:write(os.date('%Y %m %d %X') .. " " .. msg .. "' (status : " .. status .. ")\n")
 	self.logfile:flush()
 
 end
