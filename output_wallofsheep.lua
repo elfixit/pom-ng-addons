@@ -60,16 +60,28 @@ function output_wallofsheep:process_http_request_post(evt)
     local password = nil
     local pwcheck = nil
     local post_str = "{"
-    for i, v in ipairs(data['post_data']) do
-        kv = split(v, ": ")
-        if kv[0] == 'passwd' then
-            password = kv[1]
-        elseif kv[0] == 'password' then
-            password = kv[1]
-        elseif kv[0] == 'pass' then
-            password = kv[1]
+    local data_iter = pom.data.item_iterator(data['post_data'])
+    while true do
+        local key, value
+        key, value = data_iter()
+        if not key then break end
+        print("key: " .. key .. " value: " .. value)
+        local value_type = type(value)
+        if value_type == "userdata" then
+            print("Data has key " .. key .. " which value is a data_item object")
+        elseif value_type == "nil" then
+            print("Data has key " .. key .. " with no value associated")
+        else
+            kv = split(value, ": ")
+            if kv[0] == 'passwd' then
+                password = kv[1]
+            elseif kv[0] == 'password' then
+                password = kv[1]
+            elseif kv[0] == 'pass' then
+                password = kv[1]
+            end
+            post_str = post_str .. kv[0] .. " => " .. kv[1] ..", "
         end
-        post_str = post_str .. kv[0] .. " => " .. kv[1] ..", "
     end
     post_str = post_str .. "}"
     if not username or not password then return end
