@@ -17,8 +17,10 @@
 --  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 --
 
-pcall(require, "luarocks.require")
-
+call(require, "luarocks.require")
+--print(package.path)
+package.path = package.path .. ';/usr/local/share/lua/5.1/?.lua;/usr/local/share/lua/5.1/?/init.lua;/usr/local/lib/lua/5.1/?.lua;/usr/local/lib/lua/5.1/?/init.lua;/usr/share/lua/5.1/?.lua;/usr/share/lua/5.1/?/init.lua'
+-- print(package.path)
 require 'luarocks.loader'
 
 local json = require("json")
@@ -28,9 +30,10 @@ output_redis = pom.output.new("output_redis", "push a event on a redis channel",
     { "log_file", "string", "output_redis.log", "name of the log file"},
     { "event", "string", "payload", "name of the event" },
     { "redis_host", "string", "localhost", "host of redis daemon"},
-    { "redis_port", "integer", 6379, "post of the redis daemon"},
+    { "redis_port", "uint32", 6379, "post of the redis daemon"},
     { "channel", "string", "pomng", "name of the redis channel to publish"},
 })
+
 
 function pload_open(payload_priv, payload)
 
@@ -48,7 +51,7 @@ function output_redis:handle_event(evt)
     local con = self:get_conn()
     pom.log(POMLOG_DEBUG, "handle event: " .. evt.name)
     local data = self:data2table(evt.data)
-    local resp = con:publish(self:param_get('channel'), data)
+    local resp = con:publish(self:param_get('channel'), json.encode(data))
 end
 
 function output_redis:data2table(data)
