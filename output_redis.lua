@@ -66,8 +66,30 @@ function output_redis:data2table(data)
         local value_type = type(value)
         if value_type == "userdata" then
             print("Data has key " .. key .. " which value is a data_item object")
-            local usrdat = value
+            tbl[key] = self:itemdata2table(value)
+        elseif value_type == "nil" then
+            print("Data has key " .. key .. " with no value associated")
+            tbl[key] = nil
+        else
+            print("Data has key " .. key .. " with value \"" .. value .. "\"")
             tbl[key] = value
+        end
+    end
+    return tbl
+end
+
+function output_redis:itemdata2table(data)
+    local tbl = {}
+    local data_iter = pom.data.item_iterator(data)
+    while true do
+        local key, value
+        key, value = data_iter()
+        if not key then break end
+
+        local value_type = type(value)
+        if value_type == "userdata" then
+            print("Data has key " .. key .. " which value is a data_item object")
+            tbl[key] = self:itemdata2table(value)
         elseif value_type == "nil" then
             print("Data has key " .. key .. " with no value associated")
             tbl[key] = nil
