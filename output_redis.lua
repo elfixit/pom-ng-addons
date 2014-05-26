@@ -75,10 +75,11 @@ function output_redis:data2table(data)
             tbl[key] = value
         end
     end
+    return tbl
 end
 
 function output_redis:get_conn()
-    local client = redis.connect(self:param_get('redis_host'), self:param_get('redis_port'))
+    client = redis.connect(self:param_get('redis_host'), self:param_get('redis_port'))
     return client
 end
 
