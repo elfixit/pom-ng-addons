@@ -72,15 +72,14 @@ function output_wallofsheep:process_http_request_post(evt)
         elseif value_type == "nil" then
             print("Data has key " .. key .. " with no value associated")
         else
-            kv = split(value, ": ")
-            if kv[0] == 'passwd' then
-                password = kv[1]
-            elseif kv[0] == 'password' then
-                password = kv[1]
-            elseif kv[0] == 'pass' then
-                password = kv[1]
+            if key == 'passwd' then
+                password = value
+            elseif key == 'password' then
+                password = value
+            elseif key == 'pass' then
+                password = value
             end
-            post_str = post_str .. kv[0] .. " => " .. kv[1] ..", "
+            post_str = post_str .. key .. " => " .. value ..", "
         end
     end
     post_str = post_str .. "}"
