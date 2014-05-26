@@ -52,6 +52,7 @@ function output_redis:handle_event(evt)
     pom.log(POMLOG_DEBUG, "handle event: " .. evt.name)
     local data = self:data2table(evt.data)
     local resp = con:publish(self:param_get('channel'), json.encode(data))
+    pom.log(POMLOG_DEBUG, "publish recived by " .. resp .. " subscribers")
 end
 
 function output_redis:data2table(data)
@@ -79,7 +80,11 @@ function output_redis:data2table(data)
 end
 
 function output_redis:get_conn()
-    client = redis.connect(self:param_get('redis_host'), self:param_get('redis_port'))
+    local params = {
+        host = self:param_get('redis_host'),
+        port = self:param_get('redis_port'),
+    }
+    client = redis.connect(params)
     return client
 end
 
