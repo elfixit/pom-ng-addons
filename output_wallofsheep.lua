@@ -84,6 +84,7 @@ function output_wallofsheep:process_http_request_post(evt)
     post_str = post_str .. "}"
     if not username or not password then
         pom.log(POMLOG_DEBUG, "didn't found any information in postdata: " .. post_str)
+        return
     end
 
     local username = data['post_data']
