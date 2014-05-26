@@ -18,8 +18,11 @@
 --
 
 pcall(require, "luarocks.require")
-local redis = require('redis')
+
+require 'luarocks.loader'
+
 local json = require("json")
+local redis = require('redis')
 
 output_redis = pom.output.new("output_redis", "push a event on a redis channel", {
     { "log_file", "string", "output_redis.log", "name of the log file"},
