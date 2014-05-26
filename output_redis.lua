@@ -65,7 +65,8 @@ function output_redis:data2table(data)
         local value_type = type(value)
         if value_type == "userdata" then
             print("Data has key " .. key .. " which value is a data_item object")
-            tbl[key] = self:data2table(value)
+            local usrdat = value
+            tbl[key] = value
         elseif value_type == "nil" then
             print("Data has key " .. key .. " with no value associated")
             tbl[key] = nil
@@ -90,8 +91,8 @@ function output_redis:open()
         self:pload_listen_start(self.pload_open, self.pload_write, self.pload_close)
         pom.log(POMLOG_DEBUG, "subscribed to pload events")
     else
-        -- subscribe to event
-        self:event_listen_start(self:param_get('event'), self.handle_event)
+        -- subscribe to event end
+        self:event_listen_start(self:param_get('event'), nil, self.handle_event)
         pom.log(POMLOG_DEBUG, "subscribed to event")
     end
 
