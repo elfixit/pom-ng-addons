@@ -66,11 +66,7 @@ function output_wallofsheep:process_http_request_post(evt)
         if not key then break end
         --print("key: " .. key .. " value: " .. value)
         local value_type = type(value)
-        if value_type == "userdata" then
-            --print("Data has key " .. key .. " which value is a data_item object")
-        elseif value_type == "nil" then
-            --print("Data has key " .. key .. " with no value associated")
-        else
+        if not value_type == "userdata" and not value_type == "nil" then
             if key == 'passwd' then
                 password = value
             elseif key == 'password' then
@@ -79,6 +75,8 @@ function output_wallofsheep:process_http_request_post(evt)
                 password = value
             end
             post_str = post_str .. key .. " => " .. value ..", "
+        else
+            print("invalid post data key: " .. key .. " value: " .. value)
         end
     end
     post_str = post_str .. "}"
