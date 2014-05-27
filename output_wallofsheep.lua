@@ -77,7 +77,7 @@ function output_wallofsheep:process_http_request_post(evt)
             end
             post_str = post_str .. key .. " => " .. value ..", "
         else
-            print("invalid post data key: " .. key .. " value: " .. value)
+            print("invalid post data key: " .. key .. " value: " .. value .. " type: " .. value_type)
         end
     end
     post_str = post_str .. "}"
