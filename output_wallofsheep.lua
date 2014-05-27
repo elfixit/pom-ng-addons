@@ -46,7 +46,7 @@ function output_wallofsheep:process_http_request_auth(evt)
     end
 
 
-    self.logfile:write("Found credentials via HTTP : " .. client .. " -> " .. server .. " | user : '" .. username .."', password : '" .. password .. "' (status " .. status .. ")\n")
+    self.logfile:write(os.date('%Y %m %d %X') .."Found credentials via HTTP : " .. client .. " -> " .. server .. " | user : '" .. username .."', password : '" .. password .. "' (status " .. status .. ")\n")
     self.logfile:flush()
 
 end
@@ -91,14 +91,8 @@ function output_wallofsheep:process_http_request_post(evt)
 
     local client = data["client_addr"]
     local server = data["server_name"]
-    local status = data["status"]
 
-    if not status
-    then
-        status = "unknown"
-    end
-
-    self.logfile:write(os.date('%Y %m %d %X') .. " Found credentials via HTTP POST: " .. client .. " -> " .. server .. " | password: '" .. password .."' postdata : '" .. post_str .. "' (status " .. status .. ")\n")
+    self.logfile:write(os.date('%Y %m %d %X') .. " Found credentials via HTTP POST: " .. client .. " -> " .. server .. " | password: '" .. password .. " postdata : " .. post_str .. "\n")
     self.logfile:flush()
 
 end
