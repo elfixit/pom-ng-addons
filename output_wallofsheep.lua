@@ -24,7 +24,8 @@ output_wallofsheep = pom.output.new("wallofsheep", "Log clear text password seen
 
 function output_wallofsheep:process_http_request(evt)
     local data = evt.data
-    if data['request_method'] == 'POST' then
+    print("request_method: ".. data['request_method'])
+    if data['request_method'] ~= 'GET' then
         self:process_http_request_post(evt)
     end
     self:process_http_request_auth(evt)
