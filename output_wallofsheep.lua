@@ -68,11 +68,11 @@ function output_wallofsheep:process_http_request_post(evt)
         --print("key: " .. key .. " value: " .. value)
         local value_type = type(value)
         if not value_type == "userdata" and not value_type == "nil" then
-            if key == 'passwd' then
+            if key == "passwd" then
                 password = value
-            elseif key == 'password' then
+            elseif key == "password" then
                 password = value
-            elseif key == 'pass' then
+            elseif key == "pass" then
                 password = value
             end
             post_str = post_str .. key .. " => " .. value ..", "
@@ -81,7 +81,7 @@ function output_wallofsheep:process_http_request_post(evt)
         end
     end
     post_str = post_str .. "}"
-    if not username or not password then
+    if not password then
         pom.log(POMLOG_DEBUG, "didn't found any information in postdata: " .. post_str)
         return
     end
