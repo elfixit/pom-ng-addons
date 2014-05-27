@@ -58,7 +58,8 @@ function output_wallofsheep:process_http_request_post(evt)
     if not data['request_method'] == 'POST' then return end
 
     local password
-    local post_str = "{"
+    local post_str
+    post_str = "{"
     local data_iter = pom.data.item_iterator(data['post_data'])
     while true do
         local key, value
