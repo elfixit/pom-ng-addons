@@ -24,7 +24,7 @@ output_wallofsheep = pom.output.new("wallofsheep", "Log clear text password seen
 
 function output_wallofsheep:process_http_request(evt)
     local data = evt.data
-    print("request_method: ".. data['request_method'])
+    --print("request_method: ".. data['request_method'])
     if data['request_method'] ~= 'GET' then
         self:process_http_request_post(evt)
     end
@@ -66,7 +66,7 @@ function output_wallofsheep:process_http_request_post(evt)
         local key, value
         key, value = data_iter()
         if not key then break end
-
+        print("key: " .. key .. " value: " .. value)
         if key == "password" or key == "passwd" or key == "pass" then
             password = value
         end
