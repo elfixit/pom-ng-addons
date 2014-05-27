@@ -56,7 +56,7 @@ function output_wallofsheep:process_http_request_post(evt)
 
     local data = evt.data
     if data['request_method'] == 'GET' then return end
-    
+
     local password, post_str
     post_str = "{"
     local data_iter = pom.data.item_iterator(data['post_data'])
@@ -64,7 +64,7 @@ function output_wallofsheep:process_http_request_post(evt)
         local key, value
         key, value = data_iter()
         if not key then break end
-        print("key: " .. key .. " value: " .. value)
+        --print("key: " .. key .. " value: " .. value)
         if key == "password" or key == "passwd" or key == "pass" then
             password = value
         end
