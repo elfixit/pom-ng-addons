@@ -87,8 +87,6 @@ function output_wallofsheep:process_http_request_post(evt)
         return
     end
 
-    local username = data['post_data']
-
     local client = data["client_addr"]
     local server = data["server_name"]
 
