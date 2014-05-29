@@ -80,7 +80,7 @@ function output_wallofsheep:process_http_request_post(evt)
     local client = data["client_addr"]
     local server = data["server_name"]
 
-    self.logfile:write(os.date('%Y %m %d %X') .. " Found credentials via HTTP POST: " .. client .. " -> " .. server .. " | password: '" .. password .. " postdata : " .. post_str .. "\n")
+    self.logfile:write(os.date('%Y %m %d %X') .. " Found credentials via HTTP POST: " .. client .. " -> " .. server .. " | password: '" .. password .. "' postdata : " .. post_str .. "\n")
     self.logfile:flush()
 
 end
