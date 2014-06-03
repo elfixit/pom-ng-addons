@@ -47,7 +47,7 @@ function output_wallofsheep:process_http_request_auth(evt)
     end
 
 
-    self.logfile:write(os.date('%Y %m %d %X') .."Found credentials via HTTP : " .. client .. " -> " .. server .. " | user : '" .. username .."', password : '" .. password .. "' (status " .. status .. ")\n")
+    self.logfile:write(os.date('%Y %m %d %X') .." Found credentials via HTTP : " .. client .. " -> " .. server .. " | user : '" .. username .."', password : '" .. password .. "' (status " .. status .. ")\n")
     self.logfile:flush()
 
 end
@@ -117,7 +117,7 @@ function output_wallofsheep:process_smtp_auth(evt)
 
 	local client = data["client_addr"]
 
-	self.logfile:write(os.date('%Y %m %d %X ', evt.timestamp / 1000000) .. "Found credentials via SMTP : " .. client .. " -> " .. server .. " | user : '" .. username .. "', password : '" .. password .. "', method : '" .. method .. "' (status : " .. status .. ")\n")
+	self.logfile:write(os.date('%Y %m %d %X ', evt.timestamp / 1000000) .. " Found credentials via SMTP : " .. client .. " -> " .. server .. " | user : '" .. username .. "', password : '" .. password .. "', method : '" .. method .. "' (status : " .. status .. ")\n")
 	self.logfile:flush()
 
 end
