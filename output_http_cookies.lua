@@ -93,7 +93,7 @@ function output_http_cookies:process_request(evt)
 
 
 
-	self.logfile:write(os.date('%Y %m %d %X ') .. "Session cookies for " .. server .. " from client " .. client .. " : \"" .. cookie .. "\"\n")
+	self.logfile:write(os.date('%Y %m %d %X ', evt.timestamp / 1000000) .. "Session cookies for " .. server .. " from client " .. client .. " : \"" .. cookie .. "\"\n")
 	self.logfile:flush()
 
 end
