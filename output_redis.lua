@@ -47,10 +47,19 @@ function pload_close(payload_priv)
 
 end
 
-function output_redis:handle_event(evt)
+function output_redis:handle_event_start(evt)
     local con = self:get_conn()
-    pom.log(POMLOG_DEBUG, "handle event: " .. evt.name)
+    pom.log(POMLOG_DEBUG, "handle start event: " .. evt.name)
     local data = self:data2table(evt.data)
+    data['open'] = true
+    local resp = con:publish(self:param_get('channel'), json.encode(data))
+    pom.log(POMLOG_DEBUG, "publish recived by " .. resp .. " subscribers")
+end
+
+function output_redis:handle_event_stop(evt)
+    pom.log(POMLOG_DEBUG, "handle start event: " .. evt.name)
+    local data = self:data2table(evt.data)
+    data['open'] = false
     local resp = con:publish(self:param_get('channel'), json.encode(data))
     pom.log(POMLOG_DEBUG, "publish recived by " .. resp .. " subscribers")
 end
@@ -120,7 +129,7 @@ function output_redis:open()
         pom.log(POMLOG_DEBUG, "subscribed to pload events")
     else
         -- subscribe to event end
-        self:event_listen_start(self:param_get('event'), nil, self.handle_event)
+        self:event_listen_start(self:param_get('event'), self.handle_event_start, self.handle_event_stop)
         pom.log(POMLOG_DEBUG, "subscribed to event")
     end
 
