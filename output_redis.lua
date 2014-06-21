@@ -48,19 +48,20 @@ function pload_close(payload_priv)
 end
 
 function output_redis:handle_event_start(evt)
-    local con = self:get_conn()
+    local conn = self:get_conn()
     pom.log(POMLOG_DEBUG, "handle start event: " .. evt.name)
     local data = self:data2table(evt.data)
     data['open'] = true
-    local resp = con:publish(self:param_get('channel'), json.encode(data))
+    local resp = conn:publish(self:param_get('channel'), json.encode(data))
     pom.log(POMLOG_DEBUG, "publish recived by " .. resp .. " subscribers")
 end
 
 function output_redis:handle_event_stop(evt)
+    local conn = self:get_conn()
     pom.log(POMLOG_DEBUG, "handle start event: " .. evt.name)
     local data = self:data2table(evt.data)
     data['open'] = false
-    local resp = con:publish(self:param_get('channel'), json.encode(data))
+    local resp = conn:publish(self:param_get('channel'), json.encode(data))
     pom.log(POMLOG_DEBUG, "publish recived by " .. resp .. " subscribers")
 end
 
